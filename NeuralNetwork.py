@@ -1,6 +1,6 @@
 import scipy.io as reader
 import numpy as np
-
+import Layer 
 class NeuralNetwork:
 
     #constructor
@@ -12,6 +12,10 @@ class NeuralNetwork:
         self.hidden_units = 0
 
         # variables para las operaciones
+        self.training_samples = 0
+        self.training_results = np.array([])
+        self.training_set = np.array([])
+        self.layers = []
         pass
 
     def config(self, output_units, hidden_layers = 0, hidden_units = 0):
@@ -21,7 +25,22 @@ class NeuralNetwork:
         self.hidden_units = hidden_units
         return
     
+    def build(self):
+        '''
+        En este método se construiran las neuronas iniciales, divididas
+        por capas y con valores aleatorios.
         
+        Se valora un objeto [Layer] que contenga la lista de objetos [Neuron]
+        '''
+        input = self.input_units
+        for hl in range(self.hidden_layers):
+            #crear una nueva capa
+            self.layers.append(Layer.Layer(self.hidden_units, input))
+            input = self.hidden_units+1
+            
+        #crear la capa de salida
+        self.layers.append(Layer.Layer(self.output_units, input))
+        return
     
     def readData(self, filename):
         '''
