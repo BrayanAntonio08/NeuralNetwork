@@ -25,6 +25,14 @@ class NeuralNetwork:
         self.hidden_units = hidden_units
         return
     
+    def display(self):
+        iLayer = 1
+        for layer in self.layers:
+            print('\n\tCapa %d'%iLayer)
+            layer.display()
+            iLayer += 1
+        return
+            
     def build(self):
         '''
         En este método se construiran las neuronas iniciales, divididas
@@ -83,5 +91,13 @@ class NeuralNetwork:
             
         return 
     
+    def loadWeights(self, filename):
+        '''
+        Este método permite construir toda la red neurnal al leer un archivo txt
+        con los valores para cada neurona. EL algoritmo calcula la cantidad de neuronas
+        y divide las filas
+        '''
+        
+        return
     def train(self):
         return
