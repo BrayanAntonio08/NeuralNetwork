@@ -25,8 +25,7 @@ red.train()
 
 
 red.display()
-print()
-red.computeCost()
+
 print()
 # n = Neuron.Neuron(2)
 # n.genRandomValues()

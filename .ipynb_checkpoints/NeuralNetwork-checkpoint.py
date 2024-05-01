@@ -28,13 +28,9 @@ class NeuralNetwork:
         self.datafile = data_filename
         self.init_mode = init_mode
         self.weights_files = weights_filenames
-        self.activation_function = activation_function
         return
         
     def display(self):
-        '''
-        Un simple método para imprimir el contenido de la red, capa por capa
-        '''
         iLayer = 1
         for layer in self.layers:
             print('\n\tCapa %d'%iLayer)
@@ -103,7 +99,7 @@ class NeuralNetwork:
                 data = data.reshape(1, len(data))
             
             self.training_set = np.array(data[:,:-1])
-            self.training_results = np.array(data[:,-1])
+            self.training_results = np.array(data[:,-1:])
             
             #se define la cantidad de datos de entrada según el archivo
             self.training_samples = len(self.training_set)
@@ -117,31 +113,9 @@ class NeuralNetwork:
         return 
     
     def computeCost(self):
-        total_cost = 0.
-        
-        for i in range(self.training_samples):
-            row = self.training_set[i]
-            real_class = self.training_results[i] 
-            # hipotesis 
-            print(np.array(row))
-            print(real_class)
-            
-            total_cost += 0.
-        total_reg = 0.
-        return total_cost + total_reg
-    
-    def feedForward(self, entry):
-        '''
-        Función que recibe un vector de valores de entrada y despliega los resultados 
-        por toda la red, avanzando con los valores obtenidos en cada capa. 
-        
-        Retorna una lista con los valores (net) y las activaciones (out) de cada capa
-        por lo que el último vector contiene las probabilidades de clasificación, y su 
-        tamaño está dado por[output_units] 
-        '''
         return
     
-    def train(self, maxiter=0, alpha=0.1):
+    def train(self, maxiter=0):
         '''
         Acá se implementará el algoritmo de gradiente descendiente.
         Se comienza leyendo los datos preconfigurados y construyendo las neuronas iniciales.
@@ -150,20 +124,17 @@ class NeuralNetwork:
         #construir las capas iniciales de los valores
         self.build()
         
-        print(self.training_samples)
         #A partir de este punto se comienza un ciclo de evaluación de costos y optimización
         cost = self.computeCost()
         iteration = 0
         while True:
-            # 
+            #
             
             new_cost = self.computeCost()
             #evaluar diferencia de costos o posible divergencia
             if (cost-new_cost < 1e-6):
                 print('Finalizando optimización por grado de presición')
                 break
-            if new_cost > cost:
-                print('El sistema ha finalizado debido a una divergencia')
             if(maxiter>0 and iteration == maxiter):
                 print('Se ha alcanzado el límite de iteraciones')
                 break
